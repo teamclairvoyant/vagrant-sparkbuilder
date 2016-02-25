@@ -1,0 +1,11 @@
+{
+  "LICENSE": "04710a89087f7051fd6f26539353f14d",
+  "Modulefile": "c49f54161605feda164829ac797c94f9",
+  "README.md": "eea38a11a0548e2372ae0df60c453c76",
+  "Rakefile": "4617b1db6b164cda36fa92014ffa4950",
+  "manifests/init.pp": "fd4ddf1304a852a555ced5a9cafeb69b",
+  "manifests/suse.pp": "7823cbadaa002f42c54f04adbff8063d",
+  "metadata.json": "3adbebe3a46963bd34f6ac7b81f6554f",
+  "spec/classes/jdk_oracle_init_spec.rb": "976ef32821f12cd95e7878094843e2f8",
+  "spec/spec_helper.rb": "e2557d7a809dccb72606febaf0757c50"
+}
