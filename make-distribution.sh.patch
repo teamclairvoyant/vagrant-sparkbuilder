@@ -1,0 +1,13 @@
+--- make-distribution.sh-orig	2016-02-25 17:44:57.744365000 +0000
++++ make-distribution.sh	2016-02-25 19:48:32.205099083 +0000
+@@ -86,6 +86,10 @@
+       NAME="$2"
+       shift
+       ;;
++    --dist)
++      DISTDIR="$2"
++      shift
++      ;;
+     --help)
+       exit_with_usage
+       ;;
