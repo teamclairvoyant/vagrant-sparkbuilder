@@ -9,15 +9,15 @@ Vagrant.configure(2) do |config|
   # backing providers for Vagrant. These expose provider-specific options.
   # Customize the amount of memory on the VM:
   config.vm.provider "virtualbox" do |v|
-    v.memory = "2048"
+    v.memory = "3072"
     v.cpus = "2"
   end
   config.vm.provider "vmware_workstation" do |v|
-    v.vmx["memsize"] = "2048"
+    v.vmx["memsize"] = "3072"
     v.vmx["numvcpus"] = "2"
   end
   config.vm.provider "vmware_fusion" do |v|
-    v.vmx["memsize"] = "2048"
+    v.vmx["memsize"] = "3072"
     v.vmx["numvcpus"] = "2"
   end
 
