@@ -1,10 +1,14 @@
 node default {
-#  service { 'nfslock': ensure => stopped, enable => false, }
-#  service { 'rpcbind': ensure => stopped, enable => false, }
-#  service { 'auditd': ensure => stopped, enable => false, }
-#  service { 'abrt-ccpp': ensure => stopped, enable => false, }
-#  service { 'abrtd': ensure => stopped, enable => false, }
-#  package { 'yum-presto': ensure => latest, }
+  service { 'nfslock': ensure => stopped, enable => false, }
+  service { 'rpcbind': ensure => stopped, enable => false, }
+  service { 'auditd': ensure => stopped, enable => false, }
+  service { 'abrt-ccpp': ensure => stopped, enable => false, }
+  service { 'abrtd': ensure => stopped, enable => false, }
+  service { 'anacron': ensure => stopped, enable => false, }
+  service { 'postfix': ensure => stopped, enable => false, }
+  service { 'tuned': ensure => stopped, enable => false, }
+  service { 'crond': ensure => stopped, enable => false, }
+  service { 'gssproxy': ensure => stopped, enable => false, }
   package { 'deltarpm': ensure => present, }
   package { 'epel-release': ensure => present, }
   package { 'wget': ensure => present, }
