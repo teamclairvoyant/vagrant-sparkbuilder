@@ -34,7 +34,8 @@ Vagrant.configure(2) do |config|
   SHELL
 
   if Vagrant.has_plugin?("vagrant-puppet-install")
-    config.puppet_install.puppet_version = :latest
+    config.puppet_install.puppet_version = "4.3.2"
+    #config.puppet_install.puppet_version = :latest
   else
     config.vm.provision "shell", inline: <<-SHELL
       yum -y -e1 -d1 install epel-release
@@ -43,8 +44,6 @@ Vagrant.configure(2) do |config|
   end
 
   config.vm.provision :puppet do |puppet|
-    #puppet.module_path = "modules"
-    puppet.environment_path = "."
-    #puppet.environment = "production"
+    puppet.environment_path = "puppet"
   end
 end
