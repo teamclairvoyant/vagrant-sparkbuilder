@@ -1,117 +1,113 @@
+# Build Cloudera Spark with Various Extras
 
+A Vagrant setup on a CentOS 7 machine to allow for the quick build/rebuild of Cloudera's [Apache Spark](https://spark.apache.org/).
+
+## Requirements
+
+- [Virtual Box](https://www.virtualbox.org/wiki/Downloads)
+- [Vagrant 1.3+](http://www.vagrantup.com/downloads.html)
+- [Git](http://git-scm.com/downloads)
+
+## Get Started
+
+Clone this git repository to your local workstation:
+```
+git clone https://github.com/teamclairvoyant/vagrant-sparkbuilder.git
+cd vagrant-sparkbuilder
+```
+
+Start the Vagrant instance:
 ```
 vagrant up
 vagrant ssh
-#cp -a /vagrant/.m2/ .
-#git clone https://github.com/cloudera/spark.git -b cdh5.5.2-release
+```
+
+Inside the instance, clone the Cloudera Spark git repository:
+```
 git clone https://github.com/cloudera/spark.git
 cd spark
+```
 
-git checkout cdh5.5.2-release
-patch -p0 </vagrant/make-distribution.sh.patch
-./make-distribution.sh --dist dist-c-1.5.0-cdh5.5.2 -Phadoop-2.6 -Pyarn -Dhadoop.version=2.6.0-cdh5.5.2 -DskipTests -Phive -Phive-thriftserver
-git checkout -- make-distribution.sh
-
-git checkout cdh5.5.2-release
-patch -p0 </vagrant/make-distribution.sh.patch
-./make-distribution.sh --dist dist-c-1.5.0-cdh5.5.2-nodeps -Phadoop-2.6 -Pyarn -Dhadoop.version=2.6.0-cdh5.5.2 -DskipTests -Phive -Phive-thriftserver \
--Pflume-provided \
--Phadoop-provided \
--Phbase-provided \
--Phive-provided \
--Pparquet-provided
-git checkout -- make-distribution.sh
-
-
-
-git checkout cdh5.5.2-release
-patch -p0 </vagrant/make-distribution.sh.patch
-patch -p0 </vagrant/pom.xml-joda.patch
-./make-distribution.sh --dist dist-c-1.5.0-cdh5.5.2-nodeps-joda -Phadoop-2.6 -Pyarn -Dhadoop.version=2.6.0-cdh5.5.2 -DskipTests -Phive -Phive-thriftserver \
--Pflume-provided \
--Phadoop-provided \
--Phbase-provided \
--Phive-provided \
--Pparquet-provided
-git checkout -- make-distribution.sh pom.xml
-
-
-# test for sparkR
-git checkout cdh5.5.2-release
-patch -p0 </vagrant/make-distribution.sh.patch
-./make-distribution.sh --dist dist-c-1.5.0-cdh5.5.2-nodeps-R -Phadoop-2.6 -Pyarn -Dhadoop.version=2.6.0-cdh5.5.2 -DskipTests -Phive -Phive-thriftserver -Psparkr \
--Pflume-provided \
--Phadoop-provided \
--Phbase-provided \
--Phive-provided \
--Pparquet-provided
-git checkout -- make-distribution.sh
-
+Checkout the branch/tag that corresponds to the target CDH version and build Spark with the Hive Thriftserver while excluding dependencies that are shipped as part of CDH:
+```
 git fetch origin
 git checkout cdh5.7.0-release
 patch -p0 </vagrant/make-distribution.sh.patch
-./make-distribution.sh --dist dist-c-1.6.0-cdh5.7.0-nodeps -Phadoop-2.6 -Pyarn -Dhadoop.version=2.6.0-cdh5.7.0 -DskipTests -Phive -Phive-thriftserver \
--Pflume-provided \
--Phadoop-provided \
--Phbase-provided \
--Phive-provided \
--Pparquet-provided
+./make-distribution.sh -DskipTests \
+  --dist dist-cdh5.7.0-nodeps \
+  -Dhadoop.version=2.6.0-cdh5.7.0 \
+  -Phadoop-2.6 \
+  -Pyarn \
+  -Phive -Phive-thriftserver \
+  -Pflume-provided \
+  -Phadoop-provided \
+  -Phbase-provided \
+  -Phive-provided \
+  -Pparquet-provided
 git checkout -- make-distribution.sh
-
-
 ```
 
-
-
-
-
-
-
-
+Copy the resulting distribution back to your local workstation:
 ```
-vagrant up
-vagrant ssh
-#cp -a /vagrant/.m2/ .
-#git clone https://github.com/apache/spark.git -b branch-1.5
-#git clone https://github.com/apache/spark.git -b v1.5.0
-git clone https://github.com/apache/spark.git
-cd spark
-
-git checkout v1.5.0
-patch -p0 </vagrant/make-distribution.sh.patch
-./make-distribution.sh --dist dist-1.5.0-cdh5.5.2 -Phadoop-2.6 -Pyarn -Dhadoop.version=2.6.0-cdh5.5.2 -DskipTests -Phive -Phive-thriftserver
-
-#./make-distribution.sh --dist dist-1.5.0-cdh5.5.3 -Phadoop-2.6 -Pyarn -Dhadoop.version=2.6.0-cdh5.5.3 -DskipTests -Phive -Phive-thriftserver
-git checkout -- make-distribution.sh
-
-git checkout v1.5.2
-patch -p0 </vagrant/make-distribution.sh.patch
-./make-distribution.sh --dist dist-1.5.2-cdh5.5.2 -Phadoop-2.6 -Pyarn -Dhadoop.version=2.6.0-cdh5.5.2 -DskipTests -Phive -Phive-thriftserver
-git checkout -- make-distribution.sh
-
-git checkout v1.6.0
-patch -p0 </vagrant/make-distribution.sh.patch
-./make-distribution.sh --dist dist-1.6.0-cdh5.5.2 -Phadoop-2.6 -Pyarn -Dhadoop.version=2.6.0-cdh5.5.2 -DskipTests -Phive -Phive-thriftserver
-git checkout -- make-distribution.sh
-
-
-git checkout branch-1.5
-patch -p0 </vagrant/make-distribution.sh.patch
-./make-distribution.sh --dist dist-branch1.5-cdh5.5.2 -Phadoop-2.6 -Pyarn -Dhadoop.version=2.6.0-cdh5.5.2 -DskipTests -Phive -Phive-thriftserver
-git checkout -- make-distribution.sh
-
-git checkout branch-1.5
-patch -p0 </vagrant/make-distribution.sh.patch
-./make-distribution.sh --dist dist-branch1.5-cdh5.5.2-nodeps -Phadoop-2.6 -Pyarn -Dhadoop.version=2.6.0-cdh5.5.2 -DskipTests -Phive -Phive-thriftserver \
--Pflume-provided \
--Phadoop-provided \
--Phbase-provided \
--Phive-provided \
--Pparquet-provided
-git checkout -- make-distribution.sh
-
+rsync -av dist-* /vagrant/
 ```
-https://archive.clairvoyantsoft.com/spark/parcels/{latest_supported}/
-https://archive.clairvoyantsoft.com/spark/parcels/latest/
-https://archive.cloudera.com/spark/parcels/latest/
-https://github.com/cloudera/cm_csds/blob/master/SPARK/src/descriptor/service.sdl
+
+## More Examples
+
+Checkout the branch/tag that corresponds to the target CDH version and build Spark with the Hive Thriftserver:
+```
+git checkout cdh5.5.2-release
+patch -p0 </vagrant/make-distribution.sh.patch
+./make-distribution.sh -DskipTests \
+  --dist dist-cdh5.5.2 \
+  -Dhadoop.version=2.6.0-cdh5.5.2 \
+  -Phadoop-2.6 \
+  -Pyarn \
+  -Phive -Phive-thriftserver
+git checkout -- make-distribution.sh
+```
+
+Checkout the branch/tag that corresponds to the target CDH version and build Spark with the Hive Thriftserver while excluding dependencies that are shipped as part of CDH:
+```
+git checkout cdh5.5.2-release
+patch -p0 </vagrant/make-distribution.sh.patch
+./make-distribution.sh -DskipTests \
+  --dist dist-cdh5.5.2-nodeps \
+  -Dhadoop.version=2.6.0-cdh5.5.2 \
+  -Phadoop-2.6 \
+  -Pyarn \
+  -Phive -Phive-thriftserver \
+  -Pflume-provided \
+  -Phadoop-provided \
+  -Phbase-provided \
+  -Phive-provided \
+  -Pparquet-provided
+git checkout -- make-distribution.sh
+```
+
+Checkout the branch/tag that corresponds to the target CDH version and build Spark with the SparkR bits while excluding dependencies that are shipped as part of CDH:
+```
+sudo yum -y -e1 -d1 install epel-release
+sudo yum -y -e1 -d1 install R
+git checkout cdh5.7.0-release
+patch -p0 </vagrant/make-distribution.sh.patch
+patch -p0 </vagrant/sparkR.patch
+./make-distribution.sh -DskipTests \
+  --dist dist-cdh5.7.0-nodeps-R \
+  -Dhadoop.version=2.6.0-cdh5.7.0 \
+  -Phadoop-2.6 \
+  -Pyarn \
+  -Psparkr \
+  -Pflume-provided \
+  -Phadoop-provided \
+  -Phbase-provided \
+  -Phive-provided \
+  -Pparquet-provided
+git checkout -- make-distribution.sh
+```
+
+## License
+Copyright (C) 2016 [Clairvoyant, LLC.](http://clairvoyantsoft.com/)
+
+Licensed under the Apache License, Version 2.0.
+

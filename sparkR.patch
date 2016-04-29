@@ -1,0 +1,11 @@
+--- make-distribution.sh.orig	2016-04-13 19:03:13.841208499 +0000
++++ make-distribution.sh	2016-04-26 16:46:54.666480678 +0000
+@@ -231,7 +231,7 @@
+ # CDH: remove scripts for which the actual code is not included.
+ rm "$DISTDIR/bin/spark-sql"
+ rm "$DISTDIR/bin/beeline"
+-rm "$DISTDIR/bin/sparkR"
++#rm "$DISTDIR/bin/sparkR"
+ rm "$DISTDIR/sbin/start-thriftserver.sh"
+ rm "$DISTDIR/sbin/stop-thriftserver.sh"
+ 
