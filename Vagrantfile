@@ -34,7 +34,7 @@ Vagrant.configure(2) do |config|
   SHELL
 
   if Vagrant.has_plugin?("vagrant-puppet-install")
-    config.puppet_install.puppet_version = "4.3.2"
+    config.puppet_install.puppet_version = "4.4.2"
     #config.puppet_install.puppet_version = :latest
   else
     config.vm.provision "shell", inline: <<-SHELL

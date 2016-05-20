@@ -3,4 +3,6 @@
 forge 'http://forge.puppetlabs.com'
 
 mod 'schrepfler/jdk_oracle'
+mod 'puppetlabs/vcsrepo'
+mod 'puppetlabs/git'
 

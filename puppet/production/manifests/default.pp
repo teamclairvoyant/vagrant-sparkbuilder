@@ -10,7 +10,6 @@ node default {
   service { 'gssproxy': ensure => stopped, enable => false, }
   package { 'deltarpm': ensure => present, }
   package { 'epel-release': ensure => present, }
-  package { 'git': ensure => present, }
   class { 'jdk_oracle': version => '8', }
   file { '/etc/profile.d/java.sh':
     ensure  => present,
@@ -18,5 +17,15 @@ node default {
     group   => 'root',
     mode    => '0644',
     content => "export JAVA_HOME=/usr/java/default\n",
+    require  => Class['jdk_oracle'],
+  }
+  class { 'git': }
+  vcsrepo { '/home/vagrant/spark':
+    ensure   => present,
+    provider => git,
+    source   => 'https://github.com/cloudera/spark.git',
+    revision => 'cdh5.7.0-release',
+    user     => 'vagrant',
+    require  => Class['git'],
   }
 }
