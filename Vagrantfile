@@ -43,6 +43,8 @@ Vagrant.configure(2) do |config|
     SHELL
   end
 
+  config.librarian_puppet.puppetfile_dir = "puppet/production"
+
   config.vm.provision :puppet do |puppet|
     puppet.environment_path = "puppet"
   end

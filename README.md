@@ -10,6 +10,11 @@ A Vagrant setup on a CentOS 7 machine to allow for the quick build/rebuild of Cl
 
 ## Get Started
 
+```
+vagrant plugin install vagrant-librarian-puppet
+vagrant plugin install vagrant-puppet-install
+```
+
 Clone this git repository to your local workstation:
 ```
 git clone https://github.com/teamclairvoyant/vagrant-sparkbuilder.git
