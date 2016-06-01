@@ -1,0 +1,19 @@
+--- make-distribution.sh-orig	2016-06-01 20:53:48.372134096 +0000
++++ make-distribution.sh	2016-06-01 21:49:13.724945500 +0000
+@@ -229,11 +229,11 @@
+ fi
+ 
+ # CDH: remove scripts for which the actual code is not included.
+-rm "$DISTDIR/bin/spark-sql"
+-rm "$DISTDIR/bin/beeline"
+-rm "$DISTDIR/bin/sparkR"
+-rm "$DISTDIR/sbin/start-thriftserver.sh"
+-rm "$DISTDIR/sbin/stop-thriftserver.sh"
++#rm "$DISTDIR/bin/spark-sql"
++#rm "$DISTDIR/bin/beeline"
++#rm "$DISTDIR/bin/sparkR"
++#rm "$DISTDIR/sbin/start-thriftserver.sh"
++#rm "$DISTDIR/sbin/stop-thriftserver.sh"
+ 
+ # Download and copy in tachyon, if requested
+ if [ "$SPARK_TACHYON" == "true" ]; then

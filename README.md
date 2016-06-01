@@ -33,6 +33,7 @@ cd spark
 
 Checkout the branch/tag that corresponds to the target CDH version and build Spark with the Hive Thriftserver while excluding dependencies that are shipped as part of CDH:
 ```
+patch -p0 </vagrant/undelete.patch
 ./make-distribution.sh -DskipTests \
   -Dhadoop.version=2.6.0-cdh5.7.0 \
   -Phadoop-2.6 \
@@ -43,6 +44,7 @@ Checkout the branch/tag that corresponds to the target CDH version and build Spa
   -Phbase-provided \
   -Phive-provided \
   -Pparquet-provided
+git checkout -- make-distribution.sh
 ```
 
 Copy the resulting distribution back to your local workstation:
@@ -55,17 +57,20 @@ rsync -av dist/ /vagrant/dist-cdh5.7.0-nodeps
 Checkout the branch/tag that corresponds to the target CDH version and build Spark with the Hive Thriftserver:
 ```
 git checkout cdh5.5.2-release
+patch -p0 </vagrant/undelete.patch
 ./make-distribution.sh -DskipTests \
   -Dhadoop.version=2.6.0-cdh5.5.2 \
   -Phadoop-2.6 \
   -Pyarn \
   -Phive -Phive-thriftserver
+git checkout -- make-distribution.sh
 rsync -av dist/ /vagrant/dist-cdh5.7.0
 ```
 
 Checkout the branch/tag that corresponds to the target CDH version and build Spark with the Hive Thriftserver while excluding dependencies that are shipped as part of CDH:
 ```
 git checkout cdh5.5.2-release
+patch -p0 </vagrant/undelete.patch
 ./make-distribution.sh -DskipTests \
   -Dhadoop.version=2.6.0-cdh5.5.2 \
   -Phadoop-2.6 \
@@ -76,6 +81,7 @@ git checkout cdh5.5.2-release
   -Phbase-provided \
   -Phive-provided \
   -Pparquet-provided
+git checkout -- make-distribution.sh
 rsync -av dist/ /vagrant/dist-cdh5.5.2-nodeps
 ```
 
@@ -84,7 +90,7 @@ Checkout the branch/tag that corresponds to the target CDH version and build Spa
 sudo yum -y -e1 -d1 install epel-release
 sudo yum -y -e1 -d1 install R
 git checkout cdh5.7.0-release
-patch -p0 </vagrant/sparkR.patch
+patch -p0 </vagrant/undelete.patch
 ./make-distribution.sh -DskipTests \
   -Dhadoop.version=2.6.0-cdh5.7.0 \
   -Phadoop-2.6 \
@@ -95,6 +101,7 @@ patch -p0 </vagrant/sparkR.patch
   -Phbase-provided \
   -Phive-provided \
   -Pparquet-provided
+git checkout -- make-distribution.sh
 rsync -av dist/ /vagrant/dist-cdh5.7.0-nodeps-R
 ```
 
