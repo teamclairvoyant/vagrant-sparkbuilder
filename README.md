@@ -33,11 +33,7 @@ cd spark
 
 Checkout the branch/tag that corresponds to the target CDH version and build Spark with the Hive Thriftserver while excluding dependencies that are shipped as part of CDH:
 ```
-git fetch origin
-git checkout cdh5.7.0-release
-patch -p0 </vagrant/make-distribution.sh.patch
 ./make-distribution.sh -DskipTests \
-  --dist dist-cdh5.7.0-nodeps \
   -Dhadoop.version=2.6.0-cdh5.7.0 \
   -Phadoop-2.6 \
   -Pyarn \
@@ -47,12 +43,11 @@ patch -p0 </vagrant/make-distribution.sh.patch
   -Phbase-provided \
   -Phive-provided \
   -Pparquet-provided
-git checkout -- make-distribution.sh
 ```
 
 Copy the resulting distribution back to your local workstation:
 ```
-rsync -av dist-* /vagrant/
+rsync -av dist/ /vagrant/dist-cdh5.7.0-nodeps
 ```
 
 ## More Examples
@@ -60,22 +55,18 @@ rsync -av dist-* /vagrant/
 Checkout the branch/tag that corresponds to the target CDH version and build Spark with the Hive Thriftserver:
 ```
 git checkout cdh5.5.2-release
-patch -p0 </vagrant/make-distribution.sh.patch
 ./make-distribution.sh -DskipTests \
-  --dist dist-cdh5.5.2 \
   -Dhadoop.version=2.6.0-cdh5.5.2 \
   -Phadoop-2.6 \
   -Pyarn \
   -Phive -Phive-thriftserver
-git checkout -- make-distribution.sh
+rsync -av dist/ /vagrant/dist-cdh5.7.0
 ```
 
 Checkout the branch/tag that corresponds to the target CDH version and build Spark with the Hive Thriftserver while excluding dependencies that are shipped as part of CDH:
 ```
 git checkout cdh5.5.2-release
-patch -p0 </vagrant/make-distribution.sh.patch
 ./make-distribution.sh -DskipTests \
-  --dist dist-cdh5.5.2-nodeps \
   -Dhadoop.version=2.6.0-cdh5.5.2 \
   -Phadoop-2.6 \
   -Pyarn \
@@ -85,7 +76,7 @@ patch -p0 </vagrant/make-distribution.sh.patch
   -Phbase-provided \
   -Phive-provided \
   -Pparquet-provided
-git checkout -- make-distribution.sh
+rsync -av dist/ /vagrant/dist-cdh5.5.2-nodeps
 ```
 
 Checkout the branch/tag that corresponds to the target CDH version and build Spark with the SparkR bits while excluding dependencies that are shipped as part of CDH:
@@ -93,10 +84,8 @@ Checkout the branch/tag that corresponds to the target CDH version and build Spa
 sudo yum -y -e1 -d1 install epel-release
 sudo yum -y -e1 -d1 install R
 git checkout cdh5.7.0-release
-patch -p0 </vagrant/make-distribution.sh.patch
 patch -p0 </vagrant/sparkR.patch
 ./make-distribution.sh -DskipTests \
-  --dist dist-cdh5.7.0-nodeps-R \
   -Dhadoop.version=2.6.0-cdh5.7.0 \
   -Phadoop-2.6 \
   -Pyarn \
@@ -106,7 +95,7 @@ patch -p0 </vagrant/sparkR.patch
   -Phbase-provided \
   -Phive-provided \
   -Pparquet-provided
-git checkout -- make-distribution.sh
+rsync -av dist/ /vagrant/dist-cdh5.7.0-nodeps-R
 ```
 
 ## License
