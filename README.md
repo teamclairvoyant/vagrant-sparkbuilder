@@ -33,6 +33,7 @@ cd spark
 
 Checkout the branch/tag that corresponds to the target CDH version and build Spark with the Hive Thriftserver while excluding dependencies that are shipped as part of CDH:
 ```
+git checkout cdh5.7.0-release
 patch -p0 </vagrant/undelete.patch
 ./make-distribution.sh -DskipTests \
   -Dhadoop.version=2.6.0-cdh5.7.0 \
