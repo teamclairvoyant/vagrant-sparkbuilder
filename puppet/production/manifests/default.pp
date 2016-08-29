@@ -12,7 +12,7 @@ node default {
   package { 'epel-release': ensure => present, }
   package { 'patch': ensure => present, }
   package { 'rsync': ensure => present, }
-  class { 'jdk_oracle': version => '8', }
+  class { 'jdk_oracle': version => 8, }
   class { 'git': }
   vcsrepo { '/home/vagrant/spark':
     ensure   => present,
